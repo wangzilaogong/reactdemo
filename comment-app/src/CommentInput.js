@@ -14,7 +14,7 @@ class CommentInput extends Component{
             const {username, content} = this.state
             this.props.onSubmit({username, content})
         }
-        this.setState({content: ''})
+        this.setState({content:''})
     }
 
     handleUsernameChange(e){
@@ -27,8 +27,6 @@ class CommentInput extends Component{
             content : e.target.value
         })
     }
-
-
     render() {
         return(
             <div className='comment-input'>
