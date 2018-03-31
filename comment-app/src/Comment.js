@@ -16,9 +16,16 @@ class Comment extends Component {
     }
     componentWillMount(){
         this._updateTimeString()
+        this._timer  = setInterval(this._updateTimeString.bind(this),5000)
     }
-
-
+    componentWillUnmount () {
+        clearInterval(this._timer)
+    }
+    handleDeleteComment(){
+        if(this.props.onDeleteComment){
+            this.props.onDeleteComment(this.props.index)
+        }
+    }
     render(){
         return(
             <div className='comment'>
@@ -27,6 +34,7 @@ class Comment extends Component {
                 </div>
                 <p>{this.props.comment.content}</p>
                 <span>{this.state.timeString}</span>
+                <span onClick={this.handleDeleteComment.bind(this)}>删除</span>
             </div>
         )
     }
