@@ -30,13 +30,19 @@ function renderContent(content) {
 function stateChanger(state,action) { // dispatch action
     switch (action.type){
         case 'UPDATE_TITLE_TEXT':
-            state.title.text = action.text
+            return {
+                ...state,
+                text: action.text
+            }
             break
         case 'UPDATE_TITLE_COLOR':
-            state.title.color = action.color
+            return {
+                ...state,
+                color : action.color
+            }
             break
         default:
-            break
+            return state
     }
 }
 
@@ -44,13 +50,13 @@ function createStore(state,stateChanger) {
     const listeners = []
     const subscribe  = (listener) => listeners.push(listener)
     const getState = () => state
-    const dispatch = (action) =>{stateChanger(state,action)
+    const dispatch = (action) =>{
+        state = stateChanger(state,action) //返回了state对象 ...state es6 new object 浅复制
         listeners.forEach((listener) => listener())
     }
 
     return { getState , dispatch ,subscribe}
 }
-
 
 const store = createStore(appState,stateChanger)
 store.subscribe(() =>renderApp(store.getState()))
