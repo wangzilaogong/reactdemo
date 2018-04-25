@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     entry :{
     app:[
+        'babel-polyfill',
         'react-hot-loader/patch',
         path.join(__dirname,'src/index.js')
     ],
